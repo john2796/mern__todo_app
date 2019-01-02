@@ -5,7 +5,7 @@ export default class CreateTodo extends Component {
     todo_description: "",
     todo_responsible: "",
     todo_priority: "",
-    todo_completed: ""
+    todo_completed: false
   };
 
   handleInputChange = evt => {
@@ -16,22 +16,23 @@ export default class CreateTodo extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    console.log(this.state);
     this.setState({
       todo_description: "",
       todo_responsible: "",
       todo_priority: "",
-      todo_completed: ""
+      todo_completed: true
+    });
+    console.log(this.state);
+  };
+
+  onChangeTodoPriority = e => {
+    this.setState({
+      todo_priority: e.target.value
     });
   };
 
-  onChangeTodoPriority = () => {
-    console.log("testing");
-  };
-
   render() {
-    const { todo_description, todo_responsible, todo_completed } = this.state;
-
+    const { todo_description, todo_responsible } = this.state;
     return (
       <div style={{ marginTop: 20 }}>
         <h3>Create new Todo</h3>
@@ -70,9 +71,7 @@ export default class CreateTodo extends Component {
               />
               <label className="form-check-label">Low</label>
             </div>
-          </div>
-          {/* Medium */}
-          <div className="form-group">
+            {/* Medium */}
             <div className="form-check form-check-inline">
               <input
                 type="radio"
@@ -85,9 +84,7 @@ export default class CreateTodo extends Component {
               />
               <label className="form-check-label">Medium</label>
             </div>
-          </div>
-          {/* High */}
-          <div className="form-group">
+            {/* High */}
             <div className="form-check form-check-inline">
               <input
                 type="radio"
@@ -102,17 +99,12 @@ export default class CreateTodo extends Component {
             </div>
           </div>
           <div className="form-group">
-            <label>Completed</label>
             <input
-              type="text"
-              name="todo_completed"
-              value={todo_completed}
-              onChange={this.handleInputChange}
-              className="form-control"
+              type="submit"
+              className="btn btn-primary"
+              value="Create Todo"
             />
           </div>
-
-          <button type="submit">submit</button>
         </form>
       </div>
     );
