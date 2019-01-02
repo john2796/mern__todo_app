@@ -13,25 +13,27 @@ export default class TodoList extends Component {
 
   // helper method
   todoList = () => {
-    return this.state.todos.map((currentTodo, index) => (
-      <Todo
-        todo={currentTodo}
-        key={index}
-        deleteListHandler={() => this.deleteListHandler(currentTodo._id)}
-      />
-    ));
+    return this.state.todos.map((currentTodo, index) =>
+      !currentTodo.length === 0 ? (
+        <p>todo All done</p>
+      ) : (
+        <Todo
+          todo={currentTodo}
+          key={index}
+          deleteListHandler={() => this.deleteListHandler(currentTodo._id)}
+        />
+      )
+    );
   };
 
   deleteListHandler = currentTodo => {
-    console.log(currentTodo.id);
-    const url = `http://localhost:4000/todos${currentTodo.id}`;
-
+    const url = `http://localhost:4000/todos/delete/${currentTodo}`;
     axios
       .delete(url)
       .then(res => {
         this.setState((state, props) => {
           return {
-            todos: state.todos.filter(t => t !== currentTodo.id)
+            todos: state.todos.filter(t => t._id !== currentTodo)
           };
         });
       })
@@ -48,6 +50,7 @@ export default class TodoList extends Component {
   };
 
   render() {
+    console.log(this.state.todos);
     return (
       <React.Fragment>
         <h3>Todos List</h3>
