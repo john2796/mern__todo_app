@@ -9,15 +9,40 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <React.Fragment>
-          <div className="container">
-            <h2>Mern-Stack Todo App</h2>
-          </div>
+        <div className="container">
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand" href="..">
+              <img
+                src="https://react.semantic-ui.com/logo.png"
+                style={{
+                  width: 60
+                }}
+                alt="logo"
+              />
+            </a>
+            <Link to="/" className="navbar-brand">
+              Mern-Stack Todo App
+            </Link>
+            <div className="collpase nav-collapse">
+              <ul className="navbar-nav mr-auto">
+                <li className="navbar-item">
+                  <Link to="/" className="nav-link">
+                    Todos
+                  </Link>
+                </li>
+                <li className="navbar-item">
+                  <Link to="/create" className="nav-link">
+                    Create Todo
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </nav>
 
           <Route path="/" exact component={TodoList} />
           <Route path="/edit/:id" component={EditTodo} />
           <Route path="/create" component={CreateTodo} />
-        </React.Fragment>
+        </div>
       </Router>
     );
   }

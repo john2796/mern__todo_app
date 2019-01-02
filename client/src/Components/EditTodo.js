@@ -4,7 +4,7 @@ export default class EditTodo extends Component {
   render() {
     return (
       <div>
-        <h2>edit todo</h2>
+        <p>edit todo</p>
       </div>
     );
   }
