@@ -13,19 +13,16 @@ export default class TodoList extends Component {
 
   // helper method
   todoList = () => {
-    return this.state.todos.map((currentTodo, index) =>
-      !currentTodo.length === 0 ? (
-        <p>todo All done</p>
-      ) : (
-        <Todo
-          todo={currentTodo}
-          key={index}
-          deleteListHandler={() => this.deleteListHandler(currentTodo._id)}
-        />
-      )
-    );
+    return this.state.todos.map((currentTodo, index) => (
+      <Todo
+        todo={currentTodo}
+        key={index}
+        deleteListHandler={() => this.deleteListHandler(currentTodo._id)}
+      />
+    ));
   };
 
+  // Remove Items
   deleteListHandler = currentTodo => {
     const url = `http://localhost:4000/todos/delete/${currentTodo}`;
     axios
@@ -40,6 +37,7 @@ export default class TodoList extends Component {
       .catch(err => console.log(err));
   };
 
+  // Get Items
   componentDidMount = () => {
     axios
       .get(`http://localhost:4000/todos`)
@@ -50,7 +48,8 @@ export default class TodoList extends Component {
   };
 
   render() {
-    console.log(this.state.todos);
+    const { todos } = this.state;
+    console.log(todos.length);
     return (
       <React.Fragment>
         <h3>Todos List</h3>
@@ -64,7 +63,15 @@ export default class TodoList extends Component {
               <th>Delete</th>
             </tr>
           </thead>
-          <tbody>{this.todoList()}</tbody>
+          <tbody>
+            {todos.length !== 0 ? (
+              this.todoList()
+            ) : (
+              <tr>
+                <td>Todo All done !</td>
+              </tr>
+            )}
+          </tbody>
         </table>
       </React.Fragment>
     );

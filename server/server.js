@@ -22,7 +22,7 @@ const connection = mongoose.connection;
 connection.once("open", function() {
   console.log("MongoDB database connection established successfully");
 });
-
+/* GET TODO ITEMS */
 todoRoutes.route("/").get(function(req, res) {
   Todo.find(function(err, todos) {
     if (err) {
@@ -33,14 +33,14 @@ todoRoutes.route("/").get(function(req, res) {
   });
 });
 
-// get id endpoint
+/* GET ID TODO */
 todoRoutes.route("/:id").get(function(req, res) {
   let id = req.params.id;
   Todo.findById(id, function(err, todo) {
     res.json(todo);
   });
 });
-// add todo endpoint
+/* ADD TODO */
 todoRoutes.route("/add").post(function(req, res) {
   let todo = new Todo(req.body);
   todo
@@ -53,7 +53,7 @@ todoRoutes.route("/add").post(function(req, res) {
     });
 });
 
-// update endpoint
+/* UPDATE TODO */
 todoRoutes.route("/update/:id").post(function(req, res) {
   Todo.findById(req.params.id, function(err, todo) {
     if (!todo) res.status(404).send("data is not found");
