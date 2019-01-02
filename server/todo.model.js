@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let Todo = new Schema({
@@ -16,4 +16,4 @@ let Todo = new Schema({
   }
 });
 
-module.exports = mongoose.model("Todo", Todo);
+module.exports = mongoose.model('Todo', Todo);
