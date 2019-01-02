@@ -5,13 +5,16 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const todoRoutes = express.Router();
 const PORT = 4000;
+// mlab key
+const db = require("./config/keys").mongoURI;
+
 
 let Todo = require('./todo.model');
 
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
+mongoose.connect(db, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function () {
@@ -28,13 +31,14 @@ todoRoutes.route('/').get(function (req, res) {
   });
 });
 
+// get id endpoint
 todoRoutes.route('/:id').get(function (req, res) {
   let id = req.params.id;
   Todo.findById(id, function (err, todo) {
     res.json(todo);
   });
 });
-
+// add todo endpoint
 todoRoutes.route('/add').post(function (req, res) {
   let todo = new Todo(req.body);
   todo.save()
@@ -46,6 +50,7 @@ todoRoutes.route('/add').post(function (req, res) {
     });
 });
 
+// update endpoint
 todoRoutes.route('/update/:id').post(function (req, res) {
   Todo.findById(req.params.id, function (err, todo) {
     if (!todo)
